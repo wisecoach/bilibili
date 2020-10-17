@@ -1,13 +1,15 @@
 <template>
   <div>
     <div id="app">
+      <div>{{$store.state}}</div>
       <Login/>
     </div>
   </div>
 </template>
 
 <script>
-import Login from "./views/Login";
+import Login from './views/Login'
+
 export default {
   name: 'App',
   components: {Login}
@@ -21,8 +23,4 @@ html, body {
   height: 100%;
 }
 
-#app {
-  height: 100%;
-  display: flex;
-}
 </style>

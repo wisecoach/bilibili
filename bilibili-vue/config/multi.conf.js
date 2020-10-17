@@ -25,7 +25,7 @@ class MultiModule {
     Object.assign(this, {
       name,
       assetsSubDirectory: 'static',
-      assetsPublicPath: './',
+      assetsPublicPath: '/',
       port: 8080,
       host: '0.0.0.0',
       proxyTable: null,

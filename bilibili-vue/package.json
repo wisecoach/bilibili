@@ -22,7 +22,10 @@
     "clear": "node build/clear.js"
   },
   "dependencies": {
+    "element-ui": "^2.13.2",
+    "js-cookie": "^2.2.1",
     "vue": "^2.5.2",
+    "vue-cookies": "^1.7.4",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },

@@ -51,7 +51,7 @@ module.exports = {
     // Paths
     assetsRoot: multiConfig.process.assetsRoot,
     assetsSubDirectory: multiConfig.process.assetsSubDirectory,
-    assetsPublicPath: multiConfig.process.assetsPublicPath,
+    assetsPublicPath: "."+multiConfig.process.assetsPublicPath,
 
     /**
      * Source Maps
