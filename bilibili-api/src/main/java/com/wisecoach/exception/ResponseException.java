@@ -1,8 +1,8 @@
 package com.wisecoach.exception;
 
 public class ResponseException extends Exception{
-    private int code;
-    private String msg;
+    protected int code;
+    protected String msg;
 
     public ResponseException() {
     }
