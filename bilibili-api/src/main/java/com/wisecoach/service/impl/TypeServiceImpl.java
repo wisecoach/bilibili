@@ -6,6 +6,7 @@ import com.wisecoach.mapper.TypeMapper;
 import com.wisecoach.pojo.Type;
 import com.wisecoach.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class TypeServiceImpl implements TypeService {
     private TypeMapper typeMapper;
 
     @Override
+    @Cacheable
     public Type getAllType(){
         QueryWrapper<Type> allWrapper = new QueryWrapper<>();
         allWrapper.select("tid","parent","name","text");

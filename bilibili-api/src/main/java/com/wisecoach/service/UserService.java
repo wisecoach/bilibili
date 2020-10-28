@@ -2,11 +2,12 @@ package com.wisecoach.service;
 
 import com.wisecoach.exception.PassportErrorException;
 import com.wisecoach.pojo.Member;
+import com.wisecoach.pojo.User;
 
 import java.util.Map;
 
 public interface UserService {
-    Member findForAuth(Long mid);
+    User findForAuth(Long mid);
 
-    Map<String,Object> login(Member user) throws PassportErrorException;
+    Map<String,Object> login(User user) throws PassportErrorException;
 }

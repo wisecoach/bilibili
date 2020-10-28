@@ -2,7 +2,6 @@ package com.wisecoach.advice;
 
 import com.wisecoach.exception.ResponseException;
 import com.wisecoach.response.CustomResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;

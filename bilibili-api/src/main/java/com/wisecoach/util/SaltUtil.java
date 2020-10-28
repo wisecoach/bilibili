@@ -1,6 +1,6 @@
 package com.wisecoach.util;
 
-import com.wisecoach.pojo.Member;
+import com.wisecoach.pojo.User;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -8,11 +8,11 @@ import java.security.NoSuchAlgorithmException;
 
 public class SaltUtil {
 
-    public static String salty(Member member) {
-        String idSHA = getSHA(member.getMid().toString(), "SHA1");
+    public static String salty(User user) {
+        String idSHA = getSHA(user.getMid().toString(), "SHA1");
         String pref = idSHA.substring(0, 12);
         String post = idSHA.substring(28, 40);
-        String salt = getSHA(pref + member.getPassword() + post, "SHA-256");
+        String salt = getSHA(pref + user.getPassword() + post, "SHA-256");
         return salt;
     }
 

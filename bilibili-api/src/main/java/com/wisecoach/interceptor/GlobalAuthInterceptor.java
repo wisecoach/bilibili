@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wisecoach.annotation.LoginToken;
 import com.wisecoach.annotation.PassToken;
 import com.wisecoach.pojo.Member;
+import com.wisecoach.pojo.User;
 import com.wisecoach.response.CustomResponseEntity;
 import com.wisecoach.service.MemberService;
 import com.wisecoach.service.UserService;
@@ -64,7 +65,7 @@ public class GlobalAuthInterceptor implements HandlerInterceptor {
                 }
             }
             Long mid = Long.valueOf(JWT.decode(token).getAudience().get(0));
-            Member user = userService.findForAuth(mid);
+            User user = userService.findForAuth(mid);
             if (user == null) {
                 ObjectMapper mapper = new ObjectMapper();
                 String error = mapper.writeValueAsString(new CustomResponseEntity(MEMBER_MISSING_CODE, MEMBER_MISSING_MSG, null));

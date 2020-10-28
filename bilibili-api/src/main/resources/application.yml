@@ -7,9 +7,21 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   jackson:
     default-property-inclusion: non_null
+  redis:
+    cache:
+
 
 mybatis-plus:
   global-config:
     db-config:
       id-type: auto
       table-underline: true
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+cors:
+  origins:
+    - http://localhost:8093
+    - http://localhost:8091
+    - http://localhost:8092
+

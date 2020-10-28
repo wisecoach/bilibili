@@ -6,10 +6,13 @@ import com.wisecoach.exception.PassportErrorException;
 import com.wisecoach.exception.ResponseException;
 import com.wisecoach.mapper.UserMapper;
 import com.wisecoach.pojo.Member;
+import com.wisecoach.pojo.User;
 import com.wisecoach.service.UserService;
 import com.wisecoach.util.JwtUtil;
+import com.wisecoach.util.SaltUtil;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,44 +30,48 @@ public class UserServiceImpl implements UserService {
      * @return user
      */
     @Override
-    public Member findForAuth(Long mid){
-        QueryWrapper<Member> qw = new QueryWrapper();
+    public User findForAuth(Long mid){
+        QueryWrapper<User> qw = new QueryWrapper();
         qw.select("mid","password").eq("mid", mid);
-        Member member = userMapper.selectOne(qw);
-        return member;
+        User user = userMapper.selectOne(qw);
+        return user;
     }
 
     /**
      * 登录
-     * @param user 登录信息，登录信息记录在password和mid中，mid可以是mid，tel，email
+     * @param userToLogin 登录信息，登录信息记录在password和name中，name可以是mid，tel，email
      * @return 登录验证后返回token
      */
     @Override
-    public Map<String,Object> login(Member user) throws PassportErrorException {
+    public Map<String,Object> login(User userToLogin) throws PassportErrorException {
         HashMap<String, Object> map = new HashMap<>();
-        Long mid = user.getMid();
-        String password = user.getPassword();
+        String name = userToLogin.getTel();
+        String password = userToLogin.getPassword();
         String token = null;
         ArrayList<String> loginColumns = new ArrayList<>();
+        loginColumns.add("mid");
+        loginColumns.add("tel");
+        loginColumns.add("email");
         for (String loginColumn : loginColumns) {
-            QueryWrapper<Member> qw = new QueryWrapper<>();
-            qw.select("mid","password").eq(loginColumn, mid);
-            Member member = userMapper.selectOne(qw);
-            if(member.getPassword().equals(password)){
-                token = JwtUtil.formToken(member);
-                Member newUser = new Member();
-                newUser.setMid(member.getMid());
+            QueryWrapper<User> qw = new QueryWrapper<>();
+            qw.select("mid","password").eq(loginColumn, name);
+            User user = userMapper.selectOne(qw);
+            if(user == null)
+                continue;
+            userToLogin.setMid(user.getMid());
+            password = SaltUtil.salty(userToLogin);
+            if(user.getPassword().equals(password)){
+                token = JwtUtil.formToken(user);
+                User newUser = new User();
+                newUser.setMid(user.getMid());
                 newUser.setIsLogin(true);
                 userMapper.updateById(newUser);
                 map.put("bilibili_token", token);
-                map.put("bilibili_id", member.getMid());
+                map.put("bilibili_id", user.getMid());
                 return map;
             }
         }
         throw new PassportErrorException();
     }
 
-    public void register(Member member){
-
-    }
 }

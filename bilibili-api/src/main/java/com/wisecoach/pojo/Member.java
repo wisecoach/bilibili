@@ -53,16 +53,6 @@ public class Member implements Serializable {
     private Boolean verifiedTel;
     /*是否身份认证*/
     private Boolean verifiedId;
-    /*密码*/
-    private String password;
-    /*邮箱*/
-    private String email;
-    /*电话*/
-    private String tel;
-    /*身份证号*/
-    private String identity;
     /*封面*/
     private String face;
-    /*是否登录*/
-    private Boolean isLogin;
 }
